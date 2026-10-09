@@ -1,0 +1,143 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Marquee from "react-fast-marquee";
+
+interface Product {
+  id: number;
+  slug: string;
+  nameBn: string;
+  category: string;
+  categoryNameBn: string;
+  categoryIcon: string;
+  unit: string;
+  image: string;
+  today: number;
+  yesterday: number;
+  change: {
+    dir: "up" | "down" | "flat";
+    pct: number;
+  };
+}
+
+const UNIT_BN: Record<string, string> = {
+  kg: "কেজি",
+  litre: "লিটার",
+  dozen: "ডজন",
+  piece: "পিস",
+};
+
+// 48 -> ৪৮, 2.1 -> ২.১
+const toBn = (value: number, maxFractionDigits = 1) =>
+  new Intl.NumberFormat("bn-BD", {
+    maximumFractionDigits: maxFractionDigits,
+    useGrouping: false,
+  }).format(value);
+
+const CHANGE_STYLE = {
+  up: { color: "text-red-600", arrow: "▲" },
+  down: { color: "text-green-600", arrow: "▼" },
+  flat: { color: "text-gray-400", arrow: "—" },
+} as const;
+
+export default function MarqueeComponent() {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(
+          "https://api.abcz.workers.dev/api/bazardor/products"
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
+
+        const result = await response.json();
+
+        const data: Product[] = Array.isArray(result)
+          ? result
+          : Array.isArray(result.products)
+            ? result.products
+            : Array.isArray(result.data)
+              ? result.data
+              : [];
+
+        setProducts(data);
+      } catch (error) {
+        console.error("Marquee API Error:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (products.length === 0) {
+    return (
+      <div className="w-full bg-yellow-300 py-3 sm:py-5">
+        <Marquee speed={40} gradient={false}>
+          <span className="mx-6 text-sm font-bold text-black sm:mx-10 sm:text-lg">
+            BazarDor — বাজারদরের সর্বশেষ আপডেট
+          </span>
+        </Marquee>
+      </div>
+    );
+  }
+
+  return (
+    <div className="w-full overflow-hidden bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)]">
+      <Marquee
+        speed={40}
+        pauseOnHover
+        pauseOnClick
+        gradient={false}
+        direction="left"
+      >
+        {products.map((product) => {
+          const dir = product.change?.dir ?? "flat";
+          const style = CHANGE_STYLE[dir];
+          const pct = Math.abs(product.change?.pct ?? 0);
+
+          return (
+            <div
+              key={product.id}
+              className="flex items-center whitespace-nowrap py-2 text-[11px] sm:py-3 sm:text-[13px]"
+            >
+              <div className="flex items-center gap-1.5 px-3 sm:gap-2 sm:px-6">
+                {/* round emoji icon */}
+                <span className="flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border border-gray-200 bg-gray-100 text-[10px] leading-none sm:h-[22px] sm:w-[22px] sm:text-[12px]">
+                  {product.image || product.categoryIcon || "🛒"}
+                </span>
+
+                <span className="font-semibold text-gray-700">
+                  {product.nameBn}
+                </span>
+
+                <span className="font-bold text-gray-900">
+                  {toBn(product.today, 2)} টাকা/
+                  {UNIT_BN[product.unit] ?? product.unit}
+                </span>
+
+                <span
+                  className={`flex items-center gap-0.5 font-bold ${style.color}`}
+                >
+                  <span className="text-[9px] sm:text-[10px]">
+                    {style.arrow}
+                  </span>
+                  {dir !== "flat" && <>{toBn(pct)}%</>}
+                </span>
+              </div>
+
+              {/* short vertical divider */}
+              <span
+                className="h-4 w-px bg-gray-300 sm:h-5"
+                aria-hidden="true"
+              />
+            </div>
+          );
+        })}
+      </Marquee>
+    </div>
+  );
+}
