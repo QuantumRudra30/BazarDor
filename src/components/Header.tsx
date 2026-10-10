@@ -11,8 +11,6 @@ const Header = () => {
     year: "numeric",
     timeZone: "Asia/Dhaka",
   });
-
-  // shorter version for small screens: ৬ অক্টোবর, ২০২৬
   const shortDate = now.toLocaleDateString("bn-BD", {
     day: "numeric",
     month: "long",
