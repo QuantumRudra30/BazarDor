@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { getProduct } from "@/lib/api";
-import { arrow, badgeClass, formatPct, formatPrice, formatUnit } from "@/lib/format";
+import { headers } from "next/headers";
+import { notFound, redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
+import { getProduct } from "@/types/api";
+import { arrow, badgeClass, formatPct, formatPrice, formatUnit } from "@/types/format";
 
 export async function generateMetadata({
   params,
@@ -19,6 +21,11 @@ export default async function ProductDetailPage({
   params: Promise<{ id: string }>; // Next 15+. On Next 14 use { id: string } and remove "await" below.
 }) {
   const { id } = await params;
+
+  // only signed-in users can see product details
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session) redirect(`/signin?next=/products/${id}`);
+
   const p = await getProduct(id);
   if (!p) notFound();
 

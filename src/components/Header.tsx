@@ -1,5 +1,6 @@
 import Image from "next/image";
 import NavLinks from "./NavLinks";
+import AuthButtons from "./AuthButtons";
 
 const Header = () => {
   const now = new Date();
@@ -46,16 +47,8 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Auth */}
-        <div className="flex shrink-0 items-center gap-1 sm:gap-3">
-          <button className="btn btn-ghost btn-xs font-semibold text-gray-800 hover:bg-gray-100 sm:btn-sm">
-            সাইন ইন
-          </button>
-
-          <button className="btn btn-xs rounded-lg border-none bg-green-600 px-3 font-semibold text-white shadow-md shadow-green-600/30 hover:bg-green-700 sm:btn-sm sm:px-5">
-            সাইন আপ
-          </button>
-        </div>
+        {/* Auth: sign in / sign up, or avatar menu when logged in */}
+        <AuthButtons />
       </div>
 
       {/* Navigation (NavLinks scrolls by itself) */}

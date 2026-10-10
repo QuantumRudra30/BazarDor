@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import { getProductsByCategory } from "@/lib/api";
-import { formatCount } from "@/lib/format";
+import { getProductsByCategory } from "@/types/api";
+import { formatCount } from "@/types/format";
 import ProductGrid from "@/components/ProductGrid";
 
 export async function generateMetadata({

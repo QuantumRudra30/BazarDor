@@ -1,5 +1,5 @@
-import { getProducts } from "@/lib/api";
-import { formatCount } from "@/lib/format";
+import { getProducts } from "@/types/api";
+import { formatCount } from "@/types/format";
 import ProductGrid from "@/components/ProductGrid";
 
 export const metadata = {

@@ -1,6 +1,6 @@
 import Hero from "@/components/Hero";
 import ProductSection from "@/components/ProductSelection";
-import { getProducts } from "@/lib/api";
+import { getProducts } from "@/types/api";
 
 export default async function Home() {
   const products = await getProducts();

@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+# 🛒 বাজার দর (BazarDor)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**বাজার দর (BazarDor)** is a modern Bangla web application for checking and comparing the current prices of everyday grocery and household products in Bangladesh. The platform provides a simple, clean, and responsive interface where users can quickly explore product prices by category.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 🏠 **Modern Homepage**  
+  Clean and responsive homepage with today's market highlights and popular products.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 📊 **Product Price Tracking**  
+  View product names, current prices, units, and price changes with ▲ / ▼ indicators.
 
-## Learn More
+- 🗂️ **Category-Based Products**  
+  Browse products through categories such as চাল, ডাল, তেল, সবজি, মাছ, মাংস, ডিম and more.
 
-To learn more about Next.js, take a look at the following resources:
+- 🔐 **User Authentication**  
+  Users can sign in and sign up to access personalized features.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 📱 **Responsive Design**  
+  Fully responsive interface designed for desktop, tablet, and mobile devices.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🛠️ Technologies Used
 
-## Deploy on Vercel
+- **Next.js** – React framework for building the application
+- **React** – UI development
+- **TypeScript** – Type-safe development
+- **Tailwind CSS** – Styling and responsive design
+- **daisyUI** – UI components
+- **React Fast Marquee** – Scrolling market-price ticker
+- **Better Auth** – User authentication
+- **MongoDB** – Database
+- **React Hot Toast** – For toastify
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📌 Project Highlights
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+BazarDor focuses on making market-price information easy to understand and accessible in Bangla. Users can quickly see important price changes and explore products without navigating through complicated interfaces.

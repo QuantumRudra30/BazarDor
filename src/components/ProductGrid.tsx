@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { Product } from "@/lib/types";
-import { formatCount } from "@/lib/format";
+import type { Product } from "@/types/types";
+import { formatCount } from "@/types/format";
 import ProductCard from "./ProductCard";
 
 type SortKey = "default" | "priceAsc" | "priceDesc" | "rise" | "fall" | "name";

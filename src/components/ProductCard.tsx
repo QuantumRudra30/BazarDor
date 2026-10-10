@@ -1,6 +1,6 @@
 import Link from "next/link";
-import type { Product } from "@/lib/types";
-import { arrow, badgeClass, formatPct, formatPrice, formatUnit } from "@/lib/format";
+import type { Product } from "@/types/types";
+import { arrow, badgeClass, formatPct, formatPrice, formatUnit } from "@/types/format";
 
 export default function ProductCard({ product: p }: { product: Product }) {
   const { dir, pct } = p.change;
