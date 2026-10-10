@@ -2,6 +2,8 @@ import { getProducts } from "@/types/api";
 import { formatCount } from "@/types/format";
 import ProductGrid from "@/components/ProductGrid";
 
+export const dynamic = "force-dynamic"; // fetch at request time, not during build
+
 export const metadata = {
   title: "সব পণ্যের আজকের দাম | বাজার দর",
   description: "সব পণ্যের আজকের দাম ও আগের তুলনায় পরিবর্তন",

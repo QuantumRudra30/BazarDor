@@ -32,8 +32,6 @@ export async function getProductsByCategory(slug: string): Promise<Product[]> {
 export async function getProduct(id: string): Promise<Product | null> {
   const res = await fetchWithRetry(`${BASE}/products/${id}`);
   if (res.ok) return res.json();
-
-  // fallback: look it up in the full list
   const all = await getProducts();
   return all.find((p) => String(p.id) === id) ?? null;
 }

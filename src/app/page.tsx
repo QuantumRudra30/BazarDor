@@ -2,6 +2,8 @@ import Hero from "@/components/Hero";
 import ProductSection from "@/components/ProductSelection";
 import { getProducts } from "@/types/api";
 
+export const dynamic = "force-dynamic"; // fetch at request time, not during build
+
 export default async function Home() {
   const products = await getProducts();
 
