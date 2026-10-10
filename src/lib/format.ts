@@ -6,6 +6,7 @@ const bn = (n: number, opts?: Intl.NumberFormatOptions) =>
 export const formatPrice = (n: number) => `${bn(n)} টাকা`;
 export const formatPct = (n: number) =>
   `${bn(Math.abs(n), { minimumFractionDigits: 1, maximumFractionDigits: 1 })}%`;
+export const formatCount = (n: number) => bn(n);
 
 const UNITS: Record<string, string> = {
   kg: "প্রতি কেজি",

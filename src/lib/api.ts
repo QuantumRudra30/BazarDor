@@ -8,6 +8,11 @@ export async function getProducts(): Promise<Product[]> {
   return res.json();
 }
 
+export async function getProductsByCategory(slug: string): Promise<Product[]> {
+  const all = await getProducts();
+  return all.filter((p) => p.category === slug);
+}
+
 export async function getProduct(id: string): Promise<Product | null> {
   const res = await fetch(`${BASE}/products/${id}`, { next: { revalidate: 300 } });
   if (res.ok) return res.json();

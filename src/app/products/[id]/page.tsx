@@ -3,6 +3,16 @@ import { notFound } from "next/navigation";
 import { getProduct } from "@/lib/api";
 import { arrow, badgeClass, formatPct, formatPrice, formatUnit } from "@/lib/format";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const p = await getProduct(id).catch(() => null);
+  return { title: p ? `${p.nameBn} এর আজকের দাম | বাজার দর` : "বাজার দর" };
+}
+
 export default async function ProductDetailPage({
   params,
 }: {
@@ -19,11 +29,19 @@ export default async function ProductDetailPage({
     { label: "গত মাস", value: p.lastMonth },
   ];
 
+  // cheapest market first
+  const markets = [...p.markets].sort((a, b) => a.min - b.min);
+
   return (
     <main className="mx-auto max-w-4xl px-4 py-6 sm:px-6">
-      <Link href="/" className="btn btn-ghost btn-sm mb-4">
-        ← সব পণ্য
-      </Link>
+      <div className="mb-4 flex flex-wrap gap-2">
+        <Link href="/products" className="btn btn-ghost btn-sm">
+          ← সব পণ্য
+        </Link>
+        <Link href={`/category/${p.category}`} className="btn btn-ghost btn-sm">
+          {p.categoryNameBn}
+        </Link>
+      </div>
 
       <div className="flex items-center gap-4">
         <div className="flex size-16 items-center justify-center rounded-2xl bg-base-200 text-4xl">
@@ -65,7 +83,7 @@ export default async function ProductDetailPage({
             </tr>
           </thead>
           <tbody>
-            {p.markets.map((m) => (
+            {markets.map((m) => (
               <tr key={m.market}>
                 <td>{m.market}</td>
                 <td>{m.division}</td>
